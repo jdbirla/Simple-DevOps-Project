@@ -1,6 +1,8 @@
 # Deploy on a Tomcat server
 # *Jenkins Job name:* `Deploy_on_Tomcat_Server`
 
+### how to reset jekin password
+- https://blog.searce.com/jenkins-change-the-forgotten-password-525169ba1c34
 ### Pre-requisites
 
 1. Jenkins server 
