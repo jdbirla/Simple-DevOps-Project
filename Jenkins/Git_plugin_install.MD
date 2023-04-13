@@ -16,9 +16,6 @@ git: /usr/bin/git /usr/share/man/man1/git.1.gz
 [root@ip-172-31-10-155 ~]# cd /var/lib/jenkins/workspace/PullCodefromGithub
 [root@ip-172-31-10-155 PullCodefromGithub]# ls
 Dockerfile  pom.xml  README.md  regapp-deploy.yml  regapp-service.yml  server  webapp
-[root@ip-172-31-10-155 PullCodefromGithub]#
-
-
 ```
 #### Setup Git on jenkins console
 - Install git plugin without restart  
