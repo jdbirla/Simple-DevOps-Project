@@ -20,6 +20,9 @@ https://aws.amazon.com/amazon-linux-2/
 2. https://pkg.jenkins.io/redhat-stable/
 
 ```
+
+  sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+  sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 [root@ip-172-31-0-179 ~]# amazon-linux-extras install epel
 [root@ip-172-31-0-179 ~]# amazon-linux-extras install java-openjdk11
 [root@ip-172-31-0-179 ~]#   yum install jenkins
