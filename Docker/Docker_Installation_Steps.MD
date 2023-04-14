@@ -23,6 +23,19 @@
    ```
    usermod -aG docker dockeradmin
    ```
+## Enabling login using password based authentication in EC2 server
+```sh
+[root@ip-172-31-41-197 ~]# vi /etc/ssh/sshd_config
+
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication yes
+#PermitEmptyPasswords no
+#PasswordAuthentication no
+
+```
+
+
+
 ### Validation test
 1. Create a tomcat docker container by pulling a docker image from the public docker registry
    ```sh
