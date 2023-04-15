@@ -166,4 +166,58 @@ COPY ./webapp.war /usr/local/tomcat/webapps
 
 ## Kubernetes on AWS
 1. setup kubernetes on AWS https://github.com/jdbirla/Simple-DevOps-Project/blob/master/Kubernetes/kubernetes_setup_using_eksctl.md
-2. 
+2.Install AWS latest CLI
+```sh
+$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+[root@ip-172-31-33-223 ~]# aws --version
+aws-cli/1.18.147 Python/2.7.18 Linux/5.10.176-157.645.amzn2.x86_64 botocore/1.18.6
+[root@ip-172-31-33-223 ~]# exit
+logout
+[ec2-user@ip-172-31-33-223 ~]$ aws --version
+aws-cli/2.11.13 Python/3.11.3 Linux/5.10.176-157.645.amzn2.x86_64 exe/x86_64.amzn.2 prompt/off
+[ec2-user@ip-172-31-33-223 ~]$
+
+```
+3. install kubctl
+```
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.26.2/2023-03-17/bin/linux/amd64/kubectl
+[root@ip-172-31-33-223 ~]# ll
+total 103152
+drwxr-xr-x 3 root root       78 Apr 14 20:45 aws
+-rw-r--r-- 1 root root 57595989 Apr 15 05:05 awscliv2.zip
+-rw-r--r-- 1 root root 48029696 Apr 15 05:09 kubectl
+[root@ip-172-31-33-223 ~]# clear
+[root@ip-172-31-33-223 ~]# chmod +x ./kubectl
+[root@ip-172-31-33-223 ~]# chmod +x ./kubectl
+[root@ip-172-31-33-223 ~]# mv ./kubectl /usr/local/bin
+[root@ip-172-31-33-223 ~]# kubectl --version
+error: unknown flag: --version
+See 'kubectl --help' for usage.
+[root@ip-172-31-33-223 ~]# kubectl version
+WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
+Client Version: version.Info{Major:"1", Minor:"26+", GitVersion:"v1.26.2-eks-a59e1f0", GitCommit:"8b68f4b95d7121d039ceebd30870e48acc7772e4", GitTreeState:"clean", BuildDate:"2023-03-09T20:03:04Z", GoVersion:"go1.19.6", Compiler:"gc", Platform:"linux/amd64"}
+Kustomize Version: v4.5.7
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+[root@ip-172-31-33-223 ~]#
+
+```
+4. installing eksctl
+```
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+[root@ip-172-31-33-223 ~]# curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+[root@ip-172-31-33-223 ~]# cd /tmp/
+[root@ip-172-31-33-223 tmp]# ll
+total 126556
+-rwxr-xr-x 1 1001  123 129593344 Apr 11 10:18 eksctl
+drwx------ 3 root root        17 Apr 15 05:00 systemd-private-2dc8075677b04a94bc22e95686aa7ba3-chronyd.service-3N1FaP
+[root@ip-172-31-33-223 tmp]# sudo mv /tmp/eksctl /usr/local/bin
+[root@ip-172-31-33-223 tmp]# eksctl version
+0.137.0
+[root@ip-172-31-33-223 tmp]#
+
+
+```
+5. 
