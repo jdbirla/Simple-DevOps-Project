@@ -279,3 +279,31 @@ spec:
 
   type: LoadBalancer
 ```
+
+8. Create playbook for create image and deploy into kubernetes
+```
+---
+- hosts: kubernetes
+#  become: ture
+  user: root
+
+  tasks:
+    - name: deploy regapp on kubernetes
+      command: kubectl apply -f regapp-deploy.yml
+
+    - name: create service for regapp
+      command: kubectl apply -f regapp-service.yml
+
+    - name: update deployment with new pods if image updated in docker hub
+      command: kubectl rollout restart deployment.apps/jbirla-regapp
+[ansadmin@ip-172-31-34-166 docker]$
+```
+![image](https://user-images.githubusercontent.com/69948118/232223026-46d6b146-c728-4379-883c-fd08be9803d4.png)
+![image](https://user-images.githubusercontent.com/69948118/232223032-058ab8ff-5a85-486f-af59-d77c7cc0f767.png)
+![image](https://user-images.githubusercontent.com/69948118/232223038-b8088dd3-dece-4f19-99ed-1e80085fc8cf.png)
+![image](https://user-images.githubusercontent.com/69948118/232223048-d5c5c36a-8d28-420d-832b-ce8c737c28f5.png)
+![image](https://user-images.githubusercontent.com/69948118/232223056-90b91371-21b9-4426-bbc6-4a3c6a72fad9.png)
+![image](https://user-images.githubusercontent.com/69948118/232223071-16d521dc-fc57-476f-989e-7713792d5ec8.png)
+![image](https://user-images.githubusercontent.com/69948118/232223083-eb1744a1-1222-4f5d-a18b-2818b2eaccbd.png)
+![image](https://user-images.githubusercontent.com/69948118/232223095-684abef4-cd79-4e83-8f45-04d5dc9d42f7.png)
+
