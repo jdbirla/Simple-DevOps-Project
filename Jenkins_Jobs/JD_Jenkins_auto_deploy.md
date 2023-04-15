@@ -164,4 +164,6 @@ COPY ./webapp.war /usr/local/tomcat/webapps
 -  add playbook execution on jenkinn jobs
 -  ![image](https://user-images.githubusercontent.com/69948118/232181479-9cdc8f86-7722-43e7-b602-b921d47aaaa2.png)
 
-
+## Kubernetes on AWS
+1. setup kubernetes on AWS https://github.com/jdbirla/Simple-DevOps-Project/blob/master/Kubernetes/kubernetes_setup_using_eksctl.md
+2. 
