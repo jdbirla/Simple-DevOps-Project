@@ -220,4 +220,7 @@ drwx------ 3 root root        17 Apr 15 05:00 systemd-private-2dc8075677b04a94bc
 
 
 ```
-5. 
+5. Create a role
+![image](https://user-images.githubusercontent.com/69948118/232184555-61b26847-973f-487e-a9ea-ab35c22e11f5.png)
+- attache that role to ec2_bootstrap server
+
