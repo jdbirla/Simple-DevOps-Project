@@ -59,3 +59,109 @@ docker run -d --name registerapp -p 8087:8080 regapp:v1
 
 
 ## Integrating Ansible in CICD pipelin
+1. Ansible installation on ansible controller  https://github.com/jdbirla/Simple-DevOps-Project/blob/master/Ansible/Ansible_installation.MD
+  - setup EC2 , setup hostname, create admin user , add to visudo , generate ssh keys , enable passwpord based auth  install anisble
+2. Integrating with managed node where docker installed
+ - Create ansadmin user on docker host machine
+ - add ansadmin to visudo
+ - enable password based login
+ - ON ANSIBLE CONTOROLLER
+ - Add managed ip into hosts (private ip)
+ - copy ssh keys into maanged host using private ip
+ - test connetion
+3. Integrating Anisble with Jenkins
+ - Jenkins will do buil using maven and copy artifacts into anisble then ansible will create image and push to docker hub
+ - Add ansible into configure system in jenkins
+ - ![image](https://user-images.githubusercontent.com/69948118/232180803-0750ed67-8e0c-4165-bb5b-05dffff12f09.png)
+- ![image](https://user-images.githubusercontent.com/69948118/232180838-40b17bb7-0ea9-4092-83f8-9a82865cad76.png)
+4. Ansible playbook to create image and container
+- Install docker on ansible controller
+- Add ansadmin user into docker group
+- create docker file in /opt/docker
+```sh
+From tomcate:latest
+RUN cp -R /user/local/tomcat/webapps.dist/* /user/local/tomcat/webapps
+# copy war file on to container 
+COPY ./webapp.war /usr/local/tomcat/webapps
+```
+- sudo chmod 777 /var/run/docker.sock
+- add hosts in /etc/ansible/hosts as inventory for ansible server and docker host
+- we need to copy key into ansible machine itself even we generate key in anisble server
+- -create-docker-image.yml
+```yaml
+---
+- hosts: all
+  #ansadmin doesn't need root access to create an image
+  become: true 
+
+  tasks:
+  - name: building docker image
+    command: "docker build -t simple-devops-image ." 
+    args:
+      chdir: /opt/docker
+```
+- anisible-plabook create-docker-image.yml --check 
+- anisible-plabook create-docker-image.yml
+5. Push docker image to docker hub
+- login docker hub
+- docker tag image-id jbirla/regapp:latest
+- docker push jbirla/regapp:latest
+6. Edit anible playbook for tag and push docker image
+```Dockerfile
+- hosts: all
+  #ansadmin doesn't need root access to create an image
+  become: true 
+
+  tasks:
+  - name: building docker image
+    command: "docker build -t simple-devops-image ." 
+    args:
+      chdir: /opt/docker
+  - name: Create tag for push image
+    command: "docker tag -t regapp:latest jbirla/regapp:latest ." 
+    
+   - name: Push image to docker hub
+    command: "docker push jbirla/regapp:latest." 
+
+```
+![image](https://user-images.githubusercontent.com/69948118/232181303-b236c9d1-a64a-4e25-9670-4d738bd2d32b.png)
+
+7. Create container on dockerhos using ansible plabook 
+- deploy.yaml
+```Dockerfile
+---
+- hosts: dockerhost
+  become: ture
+
+  tasks:
+  - name: creating container 
+    command: docker run -d --name regapp-server -p 8080:8080 jbirla/regapp:latest
+    
+ ```
+ - sudo chmod 777 /var/run/docker.sock
+8. Continuouse deployment using jenkin job
+- deploy.yaml
+```Dockerfile
+---
+- hosts: dockerhost
+
+  tasks:
+  - name: stop existing container
+    command: docker stop regapp-server
+    ignore_errors: yes
+
+  - name: remove the container
+    command: docker rm regapp-server
+    ignore_errors: yes
+
+  - name: remove image
+    command: docker rmi jbirla/regapp:latest
+    ignore_errors: yes
+
+  - name: create container
+    command: docker run -d --name regapp-server -p 8082:8080 jbirla/regapp:latest
+ ```
+-  add playbook execution on jenkinn jobs
+-  ![image](https://user-images.githubusercontent.com/69948118/232181479-9cdc8f86-7722-43e7-b602-b921d47aaaa2.png)
+
+
