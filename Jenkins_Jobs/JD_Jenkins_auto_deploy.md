@@ -229,3 +229,53 @@ drwx------ 3 root root        17 Apr 15 05:00 systemd-private-2dc8075677b04a94bc
 ```
 [root@ip-172-31-33-223 tmp]# eksctl create cluster --name jdekscluster --region ap-south-1 --node-type t2.small
 ```
+
+7. deploya application
+```
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: jbirla-regapp
+  labels: 
+     app: regapp
+
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: regapp
+
+  template:
+    metadata:
+      labels:
+        app: regapp
+    spec:
+      containers:
+      - name: regapp
+        image: jbirla/regapp
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+```
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: jbirla-service
+  labels:
+    app: regapp 
+spec:
+  selector:
+    app: regapp 
+
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+  type: LoadBalancer
+```
