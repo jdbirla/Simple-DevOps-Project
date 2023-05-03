@@ -35,6 +35,7 @@ RUN cp -R /user/local/tomcat/webapps.dist/* /user/local/tomcat/webapps
 - create dockeradminuser and add that user into docker group
 - Enable password login in linux https://github.com/jdbirla/Simple-DevOps-Project/blob/master/Docker/Docker_Installation_Steps.MD
 - Install plugin publish over ssh to transfering artifacts to docker host
+- https://github.com/jdbirla/Simple-DevOps-Project/blob/master/Jenkins_Jobs/Deploy_on_Docker.MD
 - configure system
 - ![image](https://user-images.githubusercontent.com/69948118/231982196-042ea168-b753-4b79-8395-b9d713ff7923.png)
 
