@@ -19,7 +19,8 @@
 2. Install tomcat
 - https://github.com/jdbirla/Simple-DevOps-Project/blob/master/Tomcat/tomcat_installation.MD
 3. Install deploy to container plugin
-4. setup credentails in add credentails for tomcat server
+- https://github.com/jdbirla/Simple-DevOps-Project/blob/master/Jenkins_Jobs/Deploy_on_Tomcat_Server.MD
+5. setup credentails in add credentails for tomcat server
 ![image](https://user-images.githubusercontent.com/69948118/231979076-57794057-2eb4-401d-a8d0-e6ac1bf07be3.png)
 ![image](https://user-images.githubusercontent.com/69948118/231979145-4060a64e-f010-43c5-a820-f5f5643fbfdd.png)
 
